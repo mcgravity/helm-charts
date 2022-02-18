@@ -1,0 +1,17 @@
+{{ if .Values.nfs.enabled -}}
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-{{ template "pigallery2.fullname" . }}
+spec:
+  accessModes:
+    - {{ .Values.storageClass.accessModes }}
+  volumeMode: Filesystem
+  storageClassName: ""
+  selector:
+    matchLabels:
+      nfs-gallery: {{ template "pigallery2.fullname" . }}
+  resources:
+    requests:
+      storage: 5Gi
+{{ end -}}

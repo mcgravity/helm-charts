@@ -1,0 +1,25 @@
+{{ if .Values.nfs.enabled -}}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-{{ template "pigallery2.fullname" . }}
+  labels:
+    nfs-gallery: {{ template "pigallery2.fullname" . }}
+spec:
+  capacity:
+    storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - {{ .Values.storageClass.accessModes }}
+  persistentVolumeReclaimPolicy: {{ .Values.storageClass.reclaimPolicy }}
+  storageClassName: ""
+  {{- if .Values.nfs.mountOptions }}
+  mountOptions:
+    {{- range .Values.nfs.mountOptions }}
+    - {{ . }}
+    {{- end }}
+  {{- end }}
+  nfs:
+    server: {{ .Values.nfs.server }}
+    path: {{ .Values.nfs.path }}
+{{ end -}}
