@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  pigallery2:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2022-02-18T15:45:06.6154315+02:00"
+    description: A Helm chart for Kubernetes
+    digest: cc472ce7baa187bf55734a0833af8cd7f9805806874fce7698e6909edca0043a
+    name: pigallery2
+    type: application
+    urls:
+    - https://mcgravity.github.io/helm-charts/pigallery2-0.1.0.tgz
+    version: 0.1.0
+generated: "2022-02-18T15:45:06.6143305+02:00"
