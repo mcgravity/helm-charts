@@ -1,0 +1,15 @@
+{{- if .Values.persistentVolumeData.enabled -}}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.persistentVolumeData.claimName }}
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: "nfs"
+{{/*  storageClassName: ""*/}}
+  resources:
+    requests:
+      storage: {{ .Values.persistentVolumeData.storage }}
+  volumeName: {{ .Values.persistentVolumeData.name }}
+{{- end }}

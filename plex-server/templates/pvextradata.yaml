@@ -1,0 +1,16 @@
+{{- if .Values.persistentVolumeExtraData.enabled -}}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Values.persistentVolumeExtraData.name }}
+spec:
+  capacity:
+    storage: {{ .Values.persistentVolumeExtraData.storage }}
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: {{ .Values.persistentVolumeExtraData.nfs.server }}
+    path: {{ .Values.persistentVolumeExtraData.nfs.path }}
+{{- end }}

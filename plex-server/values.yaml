@@ -1,0 +1,100 @@
+# values.yaml for plex-server chart v0.4.7
+# Recovered from Helm release secret (namespace home-media, release plex-server)
+# Deployed: 2025-08-01
+# To upgrade: change image.tag to the new version tag+digest
+
+affinity: {}
+autoscaling:
+  enabled: false
+  maxReplicas: 2
+  minReplicas: 1
+  targetCPUUtilizationPercentage: 80
+env:
+- name: PLEX_CLAIM
+  value: claim-7BmKSKVuhQ3thCY2HgCD
+- name: TZ
+  value: Europe/Vilnius
+- name: PLEX_UID
+  value: '1000'
+- name: PLEX_GID
+  value: '1001'
+fullnameOverride: ''
+image:
+  pullPolicy: IfNotPresent
+  repository: plexinc/pms-docker
+  tag: 1.43.3.10896-cb3ebc72d@sha256:c708587e4874617961a1bc24db9cffa2413653ff422f1b05dfec013339e6824d
+imagePullSecrets: []
+ingress:
+  annotations: {}
+  className: ''
+  enabled: false
+  hosts:
+  - host: chart-example.local
+    paths:
+    - path: /
+      pathType: ImplementationSpecific
+  tls: []
+nameOverride: ''
+namespace: home-media
+nodeSelector:
+  beta.kubernetes.io/arch: amd64
+persistentVolumeConfig:
+  claimName: nfs-plex-config-claim
+  enabled: true
+  name: nfs-plex-config
+  nfs:
+    path: /export/plex-config
+    server: 192.168.1.165
+  storage: 1Gi
+persistentVolumeData:
+  claimName: nfs-plex-data-claim
+  enabled: true
+  name: nfs-plex-data
+  nfs:
+    path: /export/plex-data
+    server: 192.168.1.165
+  storage: 800Gi
+persistentVolumeExtraData:
+  claimName: nfs-plex-extra-data-claim
+  enabled: true
+  name: nfs-plex-extra-data
+  nfs:
+    path: /export/plex-ssd
+    server: 192.168.1.165
+  storage: 7000Gi
+podAnnotations: {}
+podSecurityContext: {}
+prometheus:
+  enabled: true
+  port: 9090
+  scrape: true
+replicaCount: 1
+resources: {}
+securityContext: {}
+service:
+  port: 32400
+  targetPort: 32400
+  type: NodePort
+serviceAccount:
+  annotations: {}
+  create: false
+  name: ''
+tolerations: []
+useHostNetwork: true
+volumeMounts:
+- mountPath: /config
+  name: plex-config-path
+- mountPath: /data
+  name: plex-data-path
+- mountPath: /extra-data
+  name: plex-extra-data-path
+volumes:
+- name: plex-config-path
+  persistentVolumeClaim:
+    claimName: nfs-plex-config-claim
+- name: plex-data-path
+  persistentVolumeClaim:
+    claimName: nfs-plex-data-claim
+- name: plex-extra-data-path
+  persistentVolumeClaim:
+    claimName: nfs-plex-extra-data-claim

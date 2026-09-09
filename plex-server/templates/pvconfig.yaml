@@ -1,0 +1,16 @@
+{{- if .Values.persistentVolumeConfig.enabled -}}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Values.persistentVolumeConfig.name }}
+spec:
+  capacity:
+    storage: {{ .Values.persistentVolumeConfig.storage }}
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: {{ .Values.persistentVolumeConfig.nfs.server }}
+    path: {{ .Values.persistentVolumeConfig.nfs.path }}
+{{- end }}
